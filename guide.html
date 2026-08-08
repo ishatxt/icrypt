@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guide  i-crypt</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23162019'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23c9a036'%3E%E2%99%9A%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="masthead">
+      <div class="mast-inner">
+        <a class="brand" href="index.html" aria-label="i-crypt home">
+          <span class="brand-mark">♚</span>
+          <span class="brand-name">i-<em>crypt</em></span>
+        </a>
+        <nav class="mast-nav" aria-label="Pages">
+          <a href="index.html">Home</a>
+          <a href="encode.html">Encode</a>
+          <a href="decode.html">Decode</a>
+          <a href="tools.html">Tools</a>
+          <a href="guide.html" aria-current="page">Guide</a>
+        </nav>
+        <span class="mast-meta">field guide</span>
+      </div>
+    </header>
+
+    <main id="main" class="wrap wrap-narrow">
+      <div class="page-head">
+        <p class="eyebrow eyebrow-amber">field guide</p>
+        <h1 class="page-title">How it works <span class="letter">.</span></h1>
+        <p class="page-lede">
+          Chess steganography: mathematically concealing a message inside a
+          perfectly legal game. Everything below is how the numbers behave 
+          nothing here ever leaves your browser.
+        </p>
+      </div>
+
+      <div class="guide-sect">
+        <div class="guide-item">
+          <div class="guide-item-head">
+            <span class="piece">♟</span>
+            <h3>The PGN channel</h3>
+            <span class="move">1. e4 · the text</span>
+          </div>
+          <p>
+            Text becomes binary. At every position, the legal moves are
+            sorted alphabetically  a deterministic order. If <b>N</b> moves
+            are legal, the position carries <b>⌊log₂ N⌋</b> bits: just enough
+            to choose one specific move among the valid ones. The result is a
+            game that looks natural  development, captures, castling  and
+            plays on any PGN viewer.
+          </p>
+        </div>
+
+        <div class="guide-item">
+          <div class="guide-item-head">
+            <span class="piece">♛</span>
+            <h3>The FEN key</h3>
+            <span class="move">position · the password</span>
+          </div>
+          <p>
+            A random, fully legal position serves as a key you can hold
+            visually. Two people who independently arrive at the same
+            position  in this app, in Lichess, from a printed diagram 
+            always derive the exact same key. Only the piece placement
+            matters: whose move it is, castling rights and clocks are
+            invisible on a static picture, so they are ignored when the
+            key is hashed.
+          </p>
+        </div>
+
+        <div class="guide-item">
+          <div class="guide-item-head">
+            <span class="piece">◆</span>
+            <h3>The key field</h3>
+            <span class="move">one field · three cases</span>
+          </div>
+          <p>
+            There is no mode switch to remember. The key field decides:
+            <b>blank</b> means public  anyone can decode; a plain
+            <b>password</b> encrypts the payload; a pasted
+            <b>FEN position</b> is recognized and hashed from its placement.
+            The same field, checked the same way on both pages, so nothing
+            can drift out of sync.
+          </p>
+        </div>
+
+        <div class="guide-item">
+          <div class="guide-item-head">
+            <span class="piece">◇</span>
+            <h3>The decoy</h3>
+            <span class="move">cover · never an error</span>
+          </div>
+          <p>
+            A wrong or missing key never errors out  it returns plausible
+            chess commentary, seeded deterministically from the game and the
+            attempt, so the same mistake always gets the same polite cover.
+            There is no way to tell a decoy from a genuine empty reading
+            except by holding the right key.
+          </p>
+        </div>
+
+        <div class="guide-item">
+          <div class="guide-item-head">
+            <span class="piece">♚</span>
+            <h3>The promise</h3>
+            <span class="move">on your side of the screen</span>
+          </div>
+          <p>
+            Everything  composing, replaying, hashing, decrypting  runs
+            inside your browser. No account, no server, no logs. The only
+            round trip in the system is the one you choose to make: taking
+            a game out into the world and back.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="foot-inner">
+        <span>i-crypt  all processing runs in your browser. Nothing leaves your machine.</span>
+        <div class="foot-right">
+          <span
+            class="lnk"
+            onclick="window.open('https://instagram.com/ishatxt', '_blank')"
+            >Made by ishan</span
+          >
+          <span
+            class="lnk"
+            onclick="openModal('supportModal')"
+            >Support</span
+          >
+          <span>v9.3</span>
+        </div>
+      </div>
+    </footer>
+
+    <div
+      class="modal-bg"
+      id="supportModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Support i-crypt"
+      onclick="if (event.target === this) closeModal('supportModal');"
+    >
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('supportModal')" aria-label="Close">
+          ×
+        </button>
+        <div class="modal-mark">♜</div>
+        <div class="modal-title">Support i-crypt</div>
+        <div class="modal-sub">
+          It stays free and runs entirely in your machine. A gift keeps it
+          live.
+        </div>
+        <div class="upi-label">UPI  tap to copy</div>
+        <div class="upi-block" onclick="copyUPI()">isha.iplus@gamil.com</div>
+        <div class="upi-copied" id="upiMsg"></div>
+        <button
+          class="btn btn-ghost btn-full"
+          style="margin-top: 14px"
+          onclick="window.open('https://instagram.com/ishatxt', '_blank')"
+        >
+          Subscribe on YouTube ↗
+        </button>
+        <p
+          style="
+            margin-top: 13px;
+            font-size: 10px;
+            color: var(--muted);
+            text-align: center;
+            letter-spacing: 0.08em;
+          "
+        >
+          made by ishan
+        </p>
+      </div>
+    </div>
+
+    <div id="toast">Copied</div>
+
+    <script src="js/shared.js"></script>
+  </body>
+</html>

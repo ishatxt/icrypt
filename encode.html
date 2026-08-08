@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Encode  i-crypt</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23162019'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23c9a036'%3E%E2%99%9A%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="masthead">
+      <div class="mast-inner">
+        <a class="brand" href="index.html" aria-label="i-crypt home">
+          <span class="brand-mark">♚</span>
+          <span class="brand-name">i-<em>crypt</em></span>
+        </a>
+        <nav class="mast-nav" aria-label="Pages">
+          <a href="index.html">Home</a>
+          <a href="encode.html" aria-current="page">Encode</a>
+          <a href="decode.html">Decode</a>
+          <a href="tools.html">Tools</a>
+          <a href="guide.html">Guide</a>
+        </nav>
+        <span class="mast-meta">icrypt</span>
+      </div>
+    </header>
+
+    <main id="main" class="wrap wrap-narrow">
+      <div class="page-head">
+        <p class="eyebrow eyebrow-amber">icrypt</p>
+        <h1 class="page-title">Encode <span class="letter">.</span></h1>
+        <p class="page-lede">
+          Write your message, decide on a key, and i-crypt will compose a
+          legal chess game that carries it. The game you get is fully
+          playable  import it anywhere.
+        </p>
+      </div>
+
+      <div class="tool-grid">
+        <!-- INPUT PANE -->
+        <div class="pane">
+          <div class="pane-head">
+            <span class="pane-mark">✉</span>
+            <span class="pane-title">The message</span>
+            <span class="pane-badge">text → game</span>
+          </div>
+          <div class="pane-body">
+            <div class="field">
+              <label class="field-label" for="encMsg">Message to hide</label>
+              <textarea
+                class="f-area"
+                id="encMsg"
+                rows="5"
+                placeholder="Type the message you want buried…"
+                oninput="onEncInputChange()"
+              ></textarea>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="encKey">Key  optional</label>
+              <input
+                class="f-in"
+                type="text"
+                id="encKey"
+                placeholder="A password, or paste a FEN position"
+                oninput="onEncInputChange()"
+              />
+              <div class="kstatus" id="encKeyStatus">
+                Public  no key, anyone can decode this
+              </div>
+            </div>
+
+            <div class="btn-row" style="margin-bottom: 18px">
+              <button class="btn btn-ghost btn-sm" onclick="generateFENKey()">
+                Generate a FEN key ♛
+              </button>
+            </div>
+
+            <hr class="divider" />
+
+            <div class="btn-row">
+              <button class="btn btn-prime" onclick="doEncode()">
+                Compose the game ♟
+              </button>
+              <button class="btn btn-ghost" onclick="clearEncode()">
+                Clear
+              </button>
+            </div>
+            <div id="encAlert"></div>
+          </div>
+        </div>
+
+        <!-- OUTPUT PANE -->
+        <div class="pane" id="encResult">
+          <div class="pane-head">
+            <span class="pane-mark">♟</span>
+            <span class="pane-title">The game</span>
+            <span class="pane-badge" id="moveCountBadge">0 moves</span>
+          </div>
+          <div class="pane-body">
+            <div
+              class="alert alert-err"
+              id="pgnStaleWarning"
+              style="display: none; margin-top: 0; margin-bottom: 12px"
+            >
+              The message or key changed since this game was composed 
+              compose it again.
+            </div>
+
+            <div class="stats-row" id="encStats" style="display: none">
+              <span class="stat">bits <b id="sBits">0</b></span>
+              <span class="stat">moves <b id="sMoves">0</b></span>
+              <span class="stat">chars <b id="sChars">0</b></span>
+            </div>
+
+            <div class="slip-head">
+              <span class="slip-label">PGN  paste into any chess platform</span>
+              <button class="copy" onclick="copyEl('pgnOut')">copy</button>
+            </div>
+            <div class="slip" id="pgnOut">
+              Your game will appear here. Paste it into Chess.com, Lichess,
+              or any PGN viewer and play it move after move.
+            </div>
+
+            <div id="encBoardSection" style="display: none">
+              <hr class="divider" />
+              <div class="slip-head">
+                <span class="slip-label">Position preview</span>
+                <div class="ctrl-row" style="gap: 5px">
+                  <button class="ctrl" onclick="previewPrev()">◀</button>
+                  <span class="ctrl" id="previewMoveLabel" style="min-width: 54px; text-align: center">0/0</span>
+                  <button class="ctrl" onclick="previewNext()">▶</button>
+                  <button class="ctrl" onclick="previewReset()">↺</button>
+                </div>
+              </div>
+              <div class="board-wrap">
+                <div class="board-coord-wrap">
+                  <div class="board-grid" id="boardEncode"></div>
+                </div>
+              </div>
+              <p class="status-line" id="encStatus" style="margin-top: 10px">Composed. Play it anywhere.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEN KEY CARD -->
+      <div class="pane" id="fenCard" style="display: none; margin-top: 22px">
+        <div class="pane-head">
+          <span class="pane-mark">♛</span>
+          <span class="pane-title">Random FEN key</span>
+          <span class="pane-badge">portable key</span>
+        </div>
+        <div class="pane-body" id="fenOut"></div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="foot-inner">
+        <span>i-crypt  all processing runs in your browser. Nothing leaves your machine.</span>
+        <div class="foot-right">
+          <span
+            class="lnk"
+            onclick="window.open('https://instagram.com/ishatxt', '_blank')"
+            >Made by ishan</span
+          >
+          <span
+            class="lnk"
+            onclick="openModal('supportModal')"
+            >Support</span
+          >
+          <span>v9.3</span>
+        </div>
+      </div>
+    </footer>
+
+    <div
+      class="modal-bg"
+      id="supportModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Support i-crypt"
+      onclick="if (event.target === this) closeModal('supportModal');"
+    >
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('supportModal')" aria-label="Close">
+          ×
+        </button>
+        <div class="modal-mark">♜</div>
+        <div class="modal-title">Support i-crypt</div>
+        <div class="modal-sub">
+          It stays free and runs entirely in your machine. A gift keeps it
+          live.
+        </div>
+        <div class="upi-label">UPI  tap to copy</div>
+        <div class="upi-block" onclick="copyUPI()">isha.ishan@gmail.com</div>
+        <div class="upi-copied" id="upiMsg"></div>
+        <button
+          class="btn btn-ghost btn-full"
+          style="margin-top: 14px"
+          onclick="window.open('https://instagram.com/ishatxt', '_blank')"
+        >
+          Subscribe on Instagram ↗
+        </button>
+        <p
+          style="
+            margin-top: 13px;
+            font-size: 10px;
+            color: var(--muted);
+            text-align: center;
+            letter-spacing: 0.08em;
+          "
+        >
+          made by ishan
+        </p>
+      </div>
+    </div>
+
+    <div id="toast">Copied</div>
+
+    <script src="js/engine.js"></script>
+    <script src="js/pieces.js"></script>
+    <script src="js/shared.js"></script>
+    <script src="js/encode.js"></script>
+  </body>
+</html>

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>i-crypt  hide messages inside chess games</title>
+    <meta
+      name="description"
+      content="i-crypt turns any text into a perfectly playable chess game. Post it anywhere, decode it back."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23162019'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23c9a036'%3E%E2%99%9A%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="masthead">
+      <div class="mast-inner">
+        <a class="brand" href="index.html" aria-label="i-crypt home">
+          <span class="brand-mark">♚</span>
+          <span class="brand-name">i-<em>crypt</em></span>
+        </a>
+        <nav class="mast-nav" aria-label="Pages">
+          <a href="index.html" aria-current="page">Home</a>
+          <a href="encode.html">Encode</a>
+          <a href="decode.html">Decode</a>
+          <a href="tools.html">Tools</a>
+          <a href="guide.html">Guide</a>
+        </nav>
+        <span class="mast-meta">icrypt </span>
+      </div>
+    </header>
+
+    <main id="main" class="wrap">
+      <!-- ================= HERO  THE SELF-ENCODING GAME ================= -->
+      <section class="hero">
+        <div class="hero-overline">the field console for chess steganography</div>
+        <h1>
+          Messages that play<br />
+          as <em>chess games.</em>
+        </h1>
+        <p class="hero-lede">
+          i-crypt turns any text into a perfectly legal, playable game of
+          chess. Post the game anywhere  Chess.com, Lichess, a forum, a
+          printed score  and only whoever holds the right key ever sees
+          the real message.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-prime" href="encode.html">Encode a message</a>
+          <a class="btn btn-ghost" href="decode.html">Decode a game</a>
+        </div>
+      </section>
+
+      <section class="demo" aria-label="Live demonstration">
+        <div class="demo-board">
+          <div class="board-wrap">
+            <div class="board-coord-wrap">
+              <div class="board-grid" id="heroBoard"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lightbox" style="max-width: 440px">
+          <div class="lightbox-head">
+            <span class="lid"></span>
+            <span>Live encode · current game</span>
+            <span class="tag">watching</span>
+          </div>
+          <div class="movelist" id="heroMoves" aria-live="polite"></div>
+          <div class="demostatus">
+            <span id="heroReveal">hiding the word…&nbsp;</span>
+          </div>
+        </div>
+        <p class="demoline" style="grid-column: 1 / -1">
+          We just hid the word SECRET in that game  every move was a legal,
+          ordinary chess move. That is the whole trick, live.
+        </p>
+      </section>
+
+      <!-- ===================== THE SEQUENCE ===================== -->
+      <section class="section" aria-label="How it works">
+        <p class="eyebrow">the operation</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-label">1. e4 · write</div>
+            <h3>Type the message</h3>
+            <p>
+              Add a key if you want one  a password, or a FEN position
+              agreed beforehand. No key means anyone can read it.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-label">2. Nf3 · play</div>
+            <h3>Get a real game</h3>
+            <p>
+              The tool composes a legal game whose moves carry your bits.
+              Import the PGN anywhere and play it naturally.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-label">3. Qh4 · recover</div>
+            <h3>Paste, watch, reveal</h3>
+            <p>
+              Whoever you told the key to pastes the game back. The replay
+              runs, and the message types itself out.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== TOOL INDEX ===================== -->
+      <section class="section" aria-label="The tools">
+        <p class="eyebrow">the workbench</p>
+        <div class="toolrow">
+          <a class="toolcard" href="encode.html">
+            <div class="glyph">✉</div>
+            <div class="code">icrypt / in</div>
+            <h3>Encode</h3>
+            <p>
+              Turn a text into a game nobody can tell is carrying it. Best
+              played with a key.
+            </p>
+            <span class="enter">step to encode</span>
+          </a>
+          <a class="toolcard" href="decode.html">
+            <div class="glyph">⌕</div>
+            <div class="code">icrypt / out</div>
+            <h3>Decode</h3>
+            <p>
+              Paste a game, watch it replay, watch the text come back out
+              of the move order.
+            </p>
+            <span class="enter">step to decode</span>
+          </a>
+          <a class="toolcard" href="tools.html">
+            <div class="glyph">♠</div>
+            <div class="code">covert / channel</div>
+            <h3>Tools</h3>
+            <p>
+              Portable FEN keys  a position that <em>is</em> a key  and
+              dead-drop cards for pickup by handle.
+            </p>
+            <span class="enter">open the drawer</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="foot-inner">
+        <span>i-crypt  all processing runs in your browser. Nothing leaves your machine.</span>
+        <div class="foot-right">
+          <span
+            class="lnk"
+            onclick="window.open('https://instagram.com/ishatxt', '_blank')"
+            >Made by ishan</span
+          >
+          <span
+            class="lnk"
+            onclick="openModal('supportModal')"
+            >Support</span
+          >
+          <span>v9.3</span>
+        </div>
+      </div>
+    </footer>
+
+    <div
+      class="modal-bg"
+      id="supportModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Support i-crypt"
+      onclick="if (event.target === this) closeModal('supportModal');"
+    >
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('supportModal')" aria-label="Close">
+          ×
+        </button>
+        <div class="modal-mark">♜</div>
+        <div class="modal-title">Support i-crypt</div>
+        <div class="modal-sub">
+          It stays free and runs entirely on your machine. A gift keeps it
+          live.
+        </div>
+        <div class="upi-label">Tap to copy</div>
+        <div class="upi-block" onclick="copyUPI()">isha.iplus@gmail.com</div>
+        <div class="upi-copied" id="upiMsg"></div>
+        <button
+          class="btn btn-ghost btn-full"
+          style="margin-top: 14px"
+          onclick="window.open('https://instagram.com/ishatxt', '_blank')"
+        >
+          Follow on instagram ↗
+        </button>
+        <p
+          style="
+            margin-top: 13px;
+            font-size: 10px;
+            color: var(--muted);
+            text-align: center;
+            letter-spacing: 0.08em;
+          "
+        >
+          made by ishan
+        </p>
+      </div>
+    </div>
+
+    <div id="toast">Copied</div>
+
+    <script src="js/engine.js"></script>
+    <script src="js/pieces.js"></script>
+    <script src="js/shared.js"></script>
+    <script src="js/home.js"></script>
+  </body>
+</html>
