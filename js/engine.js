@@ -410,24 +410,24 @@
 
       const DECOYS = {
         normal: [
-          "d4 d5 c4 e6 — a quiet game. There is no message here.",
-          "Every move in this line was legal. Carry on.",
-          "The pieces cooperate. The text does not oblige.",
-          "A well-played game, and nothing more to extract.",
-          "The board keeps its counsel this time.",
-          "Ordinary chess from an ordinary evening.",
-          "Solid development. No text yields.",
+          "Retarded bitch, type the password",
+          "Move ur ass bitch , type the password",
+          "Nigger , type the password",
+          "Nice try diddy, type the password",
+          "Move ur ass bitch , type the password",
+          "Retarded bitch, type the password",
+          "Move ur ass bitch , type the password",
         ],
         suspicious: [
-          "This game reads clean. The key it was given doesn't match.",
-          "The moves check out. Something you hold doesn't.",
-          "No key, no text — compare what you were handed.",
-          "Wrong key for this pickup. Cross-check the paper.",
+          "SUP nigga, type the password",
+          "Retarded bitch, type the password",
+          "Bitch , type the password",
+          "Son of bitch , type the password",
         ],
         troll: [
-          "Wrong key, and not by a little.",
-          "Nice opening. Pity about the password.",
-          "Would another key persist in telling you? This one won't.",
+          "Nice try nigger , type the password",
+          "Move ur ass bitch , type the password",
+          "Nice try diddy, type the password",
         ],
       };
 
